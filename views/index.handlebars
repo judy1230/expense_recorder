@@ -1,1 +1,77 @@
-<h2>index建立成功</h2>
+	<div class="row p-5">
+		<div class="dropdown col-3">
+			<button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+				aria-haspopup="true" aria-expanded="false">
+				月份
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<a class="dropdown-item" href="/records/filter?mon=1">一月</a>
+				<a class="dropdown-item" href="/records/filter?mon=2">二月</a>
+				<a class="dropdown-item" href="/records/filter?mon=3">三月</a>
+				<a class="dropdown-item" href="/records/filter?mon=4">四月</a>
+				<a class="dropdown-item" href="/records/filter?mon=5">五月</a>
+				<a class="dropdown-item" href="/records/filter?mon=6">六月</a>
+				<a class="dropdown-item" href="/records/filter?mon=7">七月</a>
+				<a class="dropdown-item" href="/records/filter?mon=8">八月</a>
+				<a class="dropdown-item" href="/records/filter?mon=9">九月</a>
+				<a class="dropdown-item" href="/records/filter?mon=10">十月</a>
+				<a class="dropdown-item" href="/records/filter?mon=11">十一月</a>
+				<a class="dropdown-item" href="/records/filter?mon=12">十二月</a>
+			</div>
+		</div>	
+
+			<div class="dropdown col-3">
+				<button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false">
+					類別
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<a class="dropdown-item" href="/records/filter?mon=1&&homeProperty">家居物業</a>
+					<a class="dropdown-item" href="/records/filter?mon=1&&traffic">交通出行</a>
+					<a class="dropdown-item" href="/records/filter?mon=1&&entertainment">休閒娛樂</a>
+					<a class="dropdown-item" href="/records/filter?mon=1&&food">餐飲食品</a>
+					<a class="dropdown-item" href="/records/filter?mon=1&&others">其他</a>
+				</div>
+			</div>	
+		
+	
+	<button class="btn btn-info col-2 mr-1" type="button">查詢支出</button>
+	<button class="btn btn-info col-2" type="button">新增支出</button>
+</div>
+
+<div class="container row">
+	{{!-- display total amount --}}
+	<div class="col-8">
+		<label for="totalAmount">Total Amount</label>
+		<h1 class="text-center text-danger w-75 p-3" id="totalAmount">totalAmount</h1>
+	</div>
+	
+	{{!-- display chart --}}
+	<div class="col-4">
+		<img src="https://picsum.photos/200" class="img-fluid" alt="Responsive image">
+	</div>
+</div>
+
+{{!-- record list --}}
+<ul>
+	{{#each records}}
+	<li class="list-group-item">
+		<div class="row">
+			<div class="col-auto mr-auto">
+				<h4 style="display: inline; vertical-align:middle;">{{this.name}}</h4>
+			</div>
+			<div class="col-auto">
+				<a href="/todos/{{{this.id}}}/edit?_method=PUT" class="btn btn-success">edit</a>
+				<form action='/todos/{{{this.id}}}/delete?_method=DELETE' method="POST" style="display: inline;">
+					<button type="submit" class="btn btn-danger">delete</button>
+				</form>
+			</div>
+		</div>
+	</li>
+	{{/each}}
+</ul>
+
+
+
+
+
