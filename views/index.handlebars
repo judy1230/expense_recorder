@@ -1,4 +1,4 @@
-	<div class="row p-5">
+
 		<div class="dropdown col-3">
 			<button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton" data-toggle="dropdown"
 				aria-haspopup="true" aria-expanded="false">
@@ -37,7 +37,7 @@
 	
 	<button class="btn btn-info col-2 mr-1" type="button">查詢支出</button>
 	<button class="btn btn-info col-2" type="button">新增支出</button>
-</div>
+
 
 <div class="container row">
 	{{!-- display total amount --}}
@@ -59,6 +59,9 @@
 		<div class="row">
 			<div class="col-auto mr-auto">
 				<h4 style="display: inline; vertical-align:middle;">{{this.name}}</h4>
+			</div>
+			<div class="col-auto mr-auto">
+				<h4 style="display: inline; vertical-align:middle;">{{this.amount}}</h4>
 			</div>
 			<div class="col-auto">
 				<a href="/todos/{{{this.id}}}/edit?_method=PUT" class="btn btn-success">edit</a>

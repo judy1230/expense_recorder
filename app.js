@@ -6,7 +6,7 @@ const Record = require('./models/record.js')
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
-mongoose.connect('mongodb://127.0.0.1/expense',  { useNewUrlParser: true })
+mongoose.connect('mongodb://127.0.0.1/record',  { useNewUrlParser: true })
 
 const db = mongoose.connection
 
@@ -21,17 +21,17 @@ db.once('open', () => {
 
 //set routers
 //record首頁
-app.get('/',(req, res) =>{
-	res.render('index')
+app.get('/records',(req, res) =>{
+	Record.find((err, records) =>{
+		if(err) return console.error(err)
+		return res.render('index', { records: records})
+	})
 })
-//列出全部records
-app.get('/records', (req, res) =>{
-  res.send('列出全部records')
-})
+
 
 //create new records
 app.get('/records/new', (req, res) =>{
-	res.send('create-records page')
+	res.render('new')
 })
 //create new records
 app.post('/records', (req, res) => {

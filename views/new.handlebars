@@ -1,0 +1,65 @@
+
+<div class="container text-center mb-4">
+	<h3>請輸入你的支出</h3>
+</div>
+<div class="container text-center">
+	<div class="input-group mb-4">
+		<div class="input-group-prepend">
+			<span class="input-group-text" name="name">名稱:</span>
+		</div>
+		<input type="text" class="form-control" aria-label="Sizing example input"
+			aria-describedby="inputGroup-sizing-default">
+	</div>
+
+	
+  {{!-- <div class="container">
+		<div class="row">
+			<div class='col-sm-6'>
+				<div class="form-group">
+					<div class='input-group date' id='datetimepicker1'>
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar">日期:</span>
+						</span>
+						<input type='text' class="form-control" />
+						
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+				$(function () {
+					$('#datetimepicker1').datetimepicker();
+				});
+			</script>
+		</div>
+	</div> --}}
+
+
+	<div class="input-group mb-4">
+		<div class="input-group-prepend">
+			<span class="input-group-text" name="date">日期:</span>
+		</div>
+		<input type="text" data-role="calendarpicker" data-input-format="%d/%m/%y" value="21/12/1972"class="form-control" aria-label="Sizing example input"
+			aria-describedby="inputGroup-sizing-default">
+	</div>
+	
+	<div class="input-group mb-4">
+		<div class="input-group-prepend">
+			<span class="input-group-text" name="category">類別</span>
+		</div>
+		<input type="text" class="form-control" aria-label="Sizing example input"
+			aria-describedby="inputGroup-sizing-default">
+	</div>
+	
+	<div class="input-group mb-4">
+		<div class="input-group-prepend">
+			<span class="input-group-text" name="amount">金額</span>
+		</div>
+		<input type="text" class="form-control" aria-label="Sizing example input"
+			aria-describedby="inputGroup-sizing-default">
+	</div>
+
+	<div>
+		<button class="btn btn-info w-50" type="button">新增支出</button>
+	</div>
+	
+</div>
