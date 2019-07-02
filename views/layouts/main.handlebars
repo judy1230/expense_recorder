@@ -1,0 +1,29 @@
+<!-- ./layouts/main.handlebars -->
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>家庭記帳簿</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
+</head>
+
+<body>
+	<header class="bg-light">
+		<nav class="navbar navbar-dark bg-primary justify-content-between">
+			<a href="/" class="navbar-brand">家庭記帳簿</a>
+			{{#if isAuthenticated}}
+			<a href="/users/logout" class="btn btn-outline-light">Logout</a>
+			{{else}}
+			<a href="/users/login" class="btn btn-outline-light">Login</a>
+			{{/if}}
+
+		</nav>
+	</header>
+	<main>
+		<div class="container mt-3">
+			{{{body}}}
+		</div>
+
+	</main>

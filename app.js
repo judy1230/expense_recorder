@@ -1,8 +1,11 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const exphbs = require('express-handlebars')
 const Record = require('./models/record.js')
 
+app.engine('handlebars', exphbs({defaultLayout: 'main'}))
+app.set('view engine', 'handlebars')
 mongoose.connect('mongodb://127.0.0.1/expense',  { useNewUrlParser: true })
 
 const db = mongoose.connection
@@ -19,7 +22,7 @@ db.once('open', () => {
 //set routers
 //record首頁
 app.get('/',(req, res) =>{
-	res.send('hello word!')
+	res.render('index')
 })
 //列出全部records
 app.get('/records', (req, res) =>{
