@@ -1,0 +1,17 @@
+{"results": [
+	{
+		"name": "油錢",
+		"category": "通勤",
+		"timestamp": "2019-06-25T04:11:28.774+00:00",
+		"amount": "100",
+		"totalAmount": "500"
+	},
+	{
+		"name": "午餐",
+		"category": "伙食",
+		"timestamp": "2019-06-26T12:11:28.774+00:00",
+		"amount": "80",
+		"totalAmount": "100"
+	}
+]
+}
