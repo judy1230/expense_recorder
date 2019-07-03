@@ -22,10 +22,10 @@ const recordSchema = new Schema({
 		type: String,
 		required: true
 	},
-	totalAmount: {
-		type: String,
-		required: true
-	}
+	// totalAmount: {
+	// 	type: String,
+	// 	required: true
+	// }
 })
 
 module.exports = mongoose.model('Record', recordSchema)

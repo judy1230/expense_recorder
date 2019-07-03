@@ -1,5 +1,6 @@
 
-		<div class="dropdown col-3">
+
+		<div class="dropdown col-4">
 			<button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton" data-toggle="dropdown"
 				aria-haspopup="true" aria-expanded="false">
 				月份
@@ -20,7 +21,7 @@
 			</div>
 		</div>	
 
-			<div class="dropdown col-3">
+			<div class="dropdown col-4">
 				<button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">
 					類別
@@ -34,20 +35,25 @@
 				</div>
 			</div>	
 		
+	<form class="mr-2" action="/records/filter?">
+		<button class="btn btn-outline-info btn-sm" type="submit">查詢支出</button>
+	</form>
+	<form class="mr-2" action="/records/new">
+		<button class="btn btn-outline-info btn-sm" type="submit">新增支出</button>
+	</form>
 	
-	<button class="btn btn-info col-2 mr-1" type="button">查詢支出</button>
-	<button class="btn btn-info col-2" type="button">新增支出</button>
+	
 
 
-<div class="container row">
+<div class="container row p-5">
 	{{!-- display total amount --}}
-	<div class="col-8">
+	<div class="col-6">
 		<label for="totalAmount">Total Amount</label>
-		<h1 class="text-center text-danger w-75 p-3" id="totalAmount">totalAmount</h1>
+		<h2 class="text-center text-danger w-75 p-3" id="totalAmount">totalAmount</h2>
 	</div>
 	
 	{{!-- display chart --}}
-	<div class="col-4">
+	<div class="col-3">
 		<img src="https://picsum.photos/200" class="img-fluid" alt="Responsive image">
 	</div>
 </div>
@@ -64,8 +70,8 @@
 				<h4 style="display: inline; vertical-align:middle;">{{this.amount}}</h4>
 			</div>
 			<div class="col-auto">
-				<a href="/todos/{{{this.id}}}/edit?_method=PUT" class="btn btn-success">edit</a>
-				<form action='/todos/{{{this.id}}}/delete?_method=DELETE' method="POST" style="display: inline;">
+				<a href="/records/{{{this.id}}}/edit" class="btn btn-success">edit</a>
+				<form action='/records/{{{this.id}}}/delete' method="POST" style="display: inline;">
 					<button type="submit" class="btn btn-danger">delete</button>
 				</form>
 			</div>
