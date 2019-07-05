@@ -38,10 +38,11 @@ app.get('/records/new', (req, res) =>{
 })
 //create new records
 app.post('/records', (req, res) => {
+	console.log(req)
 	const record = Record({
 		name:req.body.name,
 		category: req.body.category,
-		// date: req.body.calendarpicker,
+	  date: req.body.date,
 		amount: req.body.amount
 	})
 

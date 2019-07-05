@@ -9,6 +9,8 @@
 	<link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
 	<link rel="stylesheet" href="/public/stylesheets/bootstrap.css"> 
 	<link rel="stylesheet" href="/public/stylesheets/index.css">
+	<link rel="stylesheet" type="text/css" media="screen"
+		href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
 	
 </head>
 
@@ -29,9 +31,16 @@
 				</div>		
 		</div>
 	</main>
-	<script src="/javascripts/jquery-3.3.1.js"></script>
-	<script src="/javascripts/popper.js"></script>
-	<script src="/javascripts/bootstrap.js"></script>
+	
+	<script src="/public/javascripts/bootstrap-datetimepicker.min.js"></script>
+	<script src="/public/javascripts/jquery-3.3.1.js"></script>
+	<script src="/public/javascripts/popper.js"></script>
+	<script src="/public/javascripts/bootstrap.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$('#datetimepicker1').datetimepicker();
+		});
+	</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
