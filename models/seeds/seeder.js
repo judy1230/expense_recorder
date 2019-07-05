@@ -21,7 +21,7 @@ db.once('open', () => {
 	for (let i = 0; i < templeUser.length; i++) {
 		name = templeUser[i].name
 		if (name == []) {
-			name = '億萬富翁'
+			name = '廣志先生'
 		}
 		email = templeUser[i].email
 		password = templeUser[i].password

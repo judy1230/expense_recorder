@@ -1,4 +1,5 @@
-<form action="/records/{{{record.id}}}" method="POST">
+{{> messages}}
+<form action="/records/{{{record.id}}}?_method=PUT" method="POST">
 	<div class="container text-center mb-4">
 		<h3>編輯你的支出</h3>
 	</div>
@@ -46,8 +47,14 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text" >類別</span>
 			</div>
-			<input type="text"  name="category" value="{{{record.category}}}"class="form-control" aria-label="Sizing example input"
-				aria-describedby="inputGroup-sizing-default">
+			<select name="category" value = "{{{record.category}}}" class="form-control">
+				<option value="all">全部</option>
+				<option value="homeProperty">家居物業</option>
+				<option value="traffic">交通出行</option>
+				<option value="entertainment">休閒娛樂</option>
+				<option value="food">餐飲食品</option>
+				<option value="others">其他</option>
+			</select>
 		</div>
 
 		<div class="input-group mb-4">

@@ -1,4 +1,4 @@
-
+{{> messages}}
 	<form action="/filter">
 
 		<select name="month" class="form-control">
@@ -38,7 +38,7 @@
 <div class="container row p-5">
 	{{!-- display total amount --}}
 	<div class="col-6">
-	
+    
 		<label for="totalAmount">Total Amount</label>
 		<h2 class="text-center text-danger w-75 p-3" id="totalAmount">{{totalAmount}}</h2>
 	
@@ -63,8 +63,8 @@
 					<h4 style="display: inline; vertical-align:middle;">{{this.amount}}</h4>
 				</div>
 				<div class="col-auto">
-					<a href="/records/{{{this.id}}}/edit" class="btn btn-success">edit</a>
-					<form action='/records/{{{this.id}}}/delete' method="POST" style="display: inline;">
+					<a href="/records/{{{this.id}}}/edit?_method=PUT" class="btn btn-success">edit</a>
+					<form action='/records/{{{this.id}}}/delete?_method=DELETE' method="POST" style="display: inline;">
 						<button type="submit" class="btn btn-danger">delete</button>
 					</form>
 				</div>
