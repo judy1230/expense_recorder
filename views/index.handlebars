@@ -2,26 +2,27 @@
 	<form action="/filter">
 
 		<select name="month" class="form-control">
-			<option value="1">一月</option>
-			<option value="2">二月</option>
-			<option value="3">三月</option>
-			<option value="4">四月</option>
-			<option value="5">五月</option>
-			<option value="6">六月</option>
-			<option value="7">七月</option>
-			<option value="8">八月</option>
-			<option value="9">九月</option>
+			<option value="1" >一月</option>
+			<option value="2" >二月</option>
+			<option value="3" >三月</option>
+			<option value="4" >四月</option>
+			<option value="5" >五月</option>
+			<option value="6" >六月</option>
+			<option value="7" >七月</option>
+			<option value="8" >八月</option>
+			<option value="9" >九月</option>
 			<option value="10">十月</option>
 			<option value="11">十一月</option>
 			<option value="12">十二月</option>
 		</select>
 	
-			<select name="category"class="form-control" placeholder="全部">
-				<option value="家居物業">家居物業</option>
-				<option value="交通出行">交通出行</option>
-				<option value="休閒娛樂">休閒娛樂</option>
-				<option value="餐飲食品">餐飲食品</option>
-				<option value="其他">其他</option>
+			<select name="category"class="form-control">
+				<option value="all">全部</option>
+				<option value="homeProperty">家居物業</option>
+				<option value="traffic">交通出行</option>
+				<option value="entertainment">休閒娛樂</option>
+				<option value="food">餐飲食品</option>
+				<option value="others">其他</option>
 			</select>
 	
 			<button class="btn btn-outline-info btn-sm" type="submit">查詢支出</button>
@@ -37,8 +38,10 @@
 <div class="container row p-5">
 	{{!-- display total amount --}}
 	<div class="col-6">
+	
 		<label for="totalAmount">Total Amount</label>
-		<h2 class="text-center text-danger w-75 p-3" id="totalAmount">totalAmount</h2>
+		<h2 class="text-center text-danger w-75 p-3" id="totalAmount">{{totalAmount}}</h2>
+	
 	</div>
 	
 	{{!-- display chart --}}

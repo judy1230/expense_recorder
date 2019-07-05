@@ -95,48 +95,26 @@ app.post('/records/:id/delete', ( req, res ) =>{
 
 //filter Records
 app.get('/filter', (req, res) => {
-	//console.log('req.query.month', req.query.month)
-	//console.log('req.query.category', req.query.category)
+
 	Record.find((err, records) => {
 		const month = req.query.month
 		const keyword = req.query.category
-		
-		console.log('month', month)
-		console.log('category', keyword)
+		let totalAmount = 0
 		if (err) return console.error(err)
-		//console.log('test', test)
+
 		const recordSearch = records.filter(({ month, category }) => {
-			if (keyword == []){
+			if (keyword == 'all'){
 				return ({ "ct": { $gte: new Date(2019, month, 1), $lt: new Date(2019, month, 31) }})
-			}
-		
-			return ({ "ct": { $gte: new Date(2019, month, 1), $lt: new Date(2019, month, 31) } } && category.toLowerCase().includes(keyword.toLowerCase()))
+			}		
+			return ({ "ct": { $gte: new Date(2019, month, 1), $lt: new Date(2019, month, 31) }} && category.includes(keyword))
 		})
-		console.log('recordSearch', recordSearch)
-		return res.render('index', { records: recordSearch })
+		
+		for (let i = 0; i < recordSearch.length; i++){		
+			totalAmount += parseInt(recordSearch[i].amount)
+		}
+		return res.render('index', { records: recordSearch, totalAmount: totalAmount  })
   })
 })
-
-
-// app.get('/records/filter', (req, res) => {
-// 	const month = req.query.month
-// 	console.log('req.query.month', req.query.month)
-// 	const recordsSearch = records.filter(({ name, category }) => {
-// 		console.log(date)
-// 		console.log(categoryAasasz)
-// 		// return (name || category) includes keyword
-// 		return Record.find({ created_on: { $gte: new Date(2019, 6, 1), $lt: new Date(2019, 7, 31) } } && category.toLowerCase().includes(keyword.toLowerCase()))
-// 	})
-// 	return res.render('index', { records: recordsSearch })
-	
-
-// })
-
-
-
-
-
-
 
 app.listen(2130, () =>{
 	console.log('app is running on localhost:2130!!')
