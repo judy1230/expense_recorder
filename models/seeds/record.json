@@ -1,17 +1,34 @@
 {"results": [
 	{
 		"name": "油錢",
-		"category": "通勤",
+		"category": "交通出行",
 		"timestamp": "2019-06-25T04:11:28.774+00:00",
-		"amount": "100",
-		"totalAmount": "500"
+		"amount": "100"
 	},
 	{
 		"name": "午餐",
-		"category": "伙食",
+		"category": "餐飲食品",
 		"timestamp": "2019-06-26T12:11:28.774+00:00",
-		"amount": "80",
-		"totalAmount": "100"
+		"amount": "80"
+	},
+	{
+		"name": "早餐",
+		"category": "餐飲食品",
+		"timestamp": "2019-06-27T12:11:28.774+00:00",
+		"amount": "100"
+	},
+	{
+		"name": "電影",
+		"category": "休閒娛樂",
+		"timestamp": "2019-06-28T12:11:28.774+00:00",
+		"amount": "250"	
+	},
+	{
+		"name": "電信費",
+		"category": "其他",
+		"timestamp": "2019-07-2T17:11:28.774+00:00",
+		"amount": "999"
 	}
+
 ]
 }

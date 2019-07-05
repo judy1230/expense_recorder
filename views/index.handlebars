@@ -1,43 +1,32 @@
 
+	<form action="/filter">
 
-		<div class="dropdown col-4">
-			<button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-				aria-haspopup="true" aria-expanded="false">
-				月份
-			</button>
-			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				<a class="dropdown-item" href="/records/filter?mon=1">一月</a>
-				<a class="dropdown-item" href="/records/filter?mon=2">二月</a>
-				<a class="dropdown-item" href="/records/filter?mon=3">三月</a>
-				<a class="dropdown-item" href="/records/filter?mon=4">四月</a>
-				<a class="dropdown-item" href="/records/filter?mon=5">五月</a>
-				<a class="dropdown-item" href="/records/filter?mon=6">六月</a>
-				<a class="dropdown-item" href="/records/filter?mon=7">七月</a>
-				<a class="dropdown-item" href="/records/filter?mon=8">八月</a>
-				<a class="dropdown-item" href="/records/filter?mon=9">九月</a>
-				<a class="dropdown-item" href="/records/filter?mon=10">十月</a>
-				<a class="dropdown-item" href="/records/filter?mon=11">十一月</a>
-				<a class="dropdown-item" href="/records/filter?mon=12">十二月</a>
-			</div>
-		</div>	
-
-			<div class="dropdown col-4">
-				<button class="btn btn-secondary dropdown-toggle col-12" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false">
-					類別
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="/records/filter?mon=1&&homeProperty">家居物業</a>
-					<a class="dropdown-item" href="/records/filter?mon=1&&traffic">交通出行</a>
-					<a class="dropdown-item" href="/records/filter?mon=1&&entertainment">休閒娛樂</a>
-					<a class="dropdown-item" href="/records/filter?mon=1&&food">餐飲食品</a>
-					<a class="dropdown-item" href="/records/filter?mon=1&&others">其他</a>
-				</div>
-			</div>	
-		
-	<form class="mr-2" action="/records/filter?">
-		<button class="btn btn-outline-info btn-sm" type="submit">查詢支出</button>
+		<select name="month" class="form-control">
+			<option value="1">一月</option>
+			<option value="2">二月</option>
+			<option value="3">三月</option>
+			<option value="4">四月</option>
+			<option value="5">五月</option>
+			<option value="6">六月</option>
+			<option value="7">七月</option>
+			<option value="8">八月</option>
+			<option value="9">九月</option>
+			<option value="10">十月</option>
+			<option value="11">十一月</option>
+			<option value="12">十二月</option>
+		</select>
+	
+			<select name="category"class="form-control" placeholder="全部">
+				<option value="家居物業">家居物業</option>
+				<option value="交通出行">交通出行</option>
+				<option value="休閒娛樂">休閒娛樂</option>
+				<option value="餐飲食品">餐飲食品</option>
+				<option value="其他">其他</option>
+			</select>
+	
+			<button class="btn btn-outline-info btn-sm" type="submit">查詢支出</button>
 	</form>
+
 	<form class="mr-2" action="/records/new">
 		<button class="btn btn-outline-info btn-sm" type="submit">新增支出</button>
 	</form>
@@ -59,26 +48,28 @@
 </div>
 
 {{!-- record list --}}
-<ul>
-	{{#each records}}
-	<li class="list-group-item">
-		<div class="row">
-			<div class="col-auto mr-auto">
-				<h4 style="display: inline; vertical-align:middle;">{{this.name}}</h4>
+<div>
+	<ul>
+		{{#each records}}
+		<li class="list-group-item">
+			<div class="row">
+				<div class="col-auto mr-auto">
+					<h4 style="display: inline; vertical-align:middle;">{{this.name}}</h4>
+				</div>
+				<div class="col-auto mr-auto">
+					<h4 style="display: inline; vertical-align:middle;">{{this.amount}}</h4>
+				</div>
+				<div class="col-auto">
+					<a href="/records/{{{this.id}}}/edit" class="btn btn-success">edit</a>
+					<form action='/records/{{{this.id}}}/delete' method="POST" style="display: inline;">
+						<button type="submit" class="btn btn-danger">delete</button>
+					</form>
+				</div>
 			</div>
-			<div class="col-auto mr-auto">
-				<h4 style="display: inline; vertical-align:middle;">{{this.amount}}</h4>
-			</div>
-			<div class="col-auto">
-				<a href="/records/{{{this.id}}}/edit" class="btn btn-success">edit</a>
-				<form action='/records/{{{this.id}}}/delete' method="POST" style="display: inline;">
-					<button type="submit" class="btn btn-danger">delete</button>
-				</form>
-			</div>
-		</div>
-	</li>
-	{{/each}}
-</ul>
+		</li>
+		{{/each}}
+	</ul>
+</div>
 
 
 

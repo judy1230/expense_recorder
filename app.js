@@ -93,35 +93,44 @@ app.post('/records/:id/delete', ( req, res ) =>{
 })
 
 
-//sort restaurants
+//filter Records
 app.get('/filter', (req, res) => {
-
-	switch (req._parsedOriginalUrl.query) {
-		case 'atoz':
-			Restaurant.find({ userID: req.user._id })
-				.sort({ name: 1 })
-				.exec((err, restaurants) => {
-					if (err) return console.error(err)
-					return res.render('index', { restaurants: restaurants })
-				})
-			break;
-		case 'time':
-			Restaurant.find({ userID: req.user._id })
-				.sort({ timestamp: -1 })
-				.exec((err, restaurants) => {
-					if (err) return console.error(err)
-					return res.render('index', { restaurants: restaurants })
-				})
-			break;
-		case 'rating':
-			Restaurant.find({ userID: req.user._id })
-				.sort({ rating: -1 })
-				.exec((err, restaurants) => {
-					if (err) return console.error(err)
-					return res.render('index', { restaurants: restaurants })
-				})
-	}
+	//console.log('req.query.month', req.query.month)
+	//console.log('req.query.category', req.query.category)
+	Record.find((err, records) => {
+		const month = req.query.month
+		const keyword = req.query.category
+		
+		console.log('month', month)
+		console.log('category', keyword)
+		if (err) return console.error(err)
+		//console.log('test', test)
+		const recordSearch = records.filter(({ month, category }) => {
+			if (keyword == []){
+				return ({ "ct": { $gte: new Date(2019, month, 1), $lt: new Date(2019, month, 31) }})
+			}
+		
+			return ({ "ct": { $gte: new Date(2019, month, 1), $lt: new Date(2019, month, 31) } } && category.toLowerCase().includes(keyword.toLowerCase()))
+		})
+		console.log('recordSearch', recordSearch)
+		return res.render('index', { records: recordSearch })
+  })
 })
+
+
+// app.get('/records/filter', (req, res) => {
+// 	const month = req.query.month
+// 	console.log('req.query.month', req.query.month)
+// 	const recordsSearch = records.filter(({ name, category }) => {
+// 		console.log(date)
+// 		console.log(categoryAasasz)
+// 		// return (name || category) includes keyword
+// 		return Record.find({ created_on: { $gte: new Date(2019, 6, 1), $lt: new Date(2019, 7, 31) } } && category.toLowerCase().includes(keyword.toLowerCase()))
+// 	})
+// 	return res.render('index', { records: recordsSearch })
+	
+
+// })
 
 
 

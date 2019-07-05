@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const recordSchema = new Schema({
-	// userID: {
-	// 	type: String,
-	// 	required: true
-	// },
+	userID: {
+		type: String,
+		required: true
+	},
 	name: {
 		type: String,
 		required: true
@@ -21,7 +21,7 @@ const recordSchema = new Schema({
 	amount: {
 		type: String,
 		required: true
-	},
+	}
 	// totalAmount: {
 	// 	type: String,
 	// 	required: true
