@@ -1,8 +1,8 @@
-{{> messages}}
-<div class = "container row p-5">
-  <form action="/filter">
-    
-    <div class="input-group mb-3">
+<form action="/filter">
+<div class = "container row p-4">
+  
+    {{> messages}}
+    {{!-- <div class="input-group mb-3">
       <div class="input-group-prepend">
         <label class="input-group-text"   for="inputGroupSelect01">month</label>
       </div>
@@ -23,9 +23,9 @@
         <option value="2">Two</option>
         <option value="3">Three</option>
       </select>
-    </div>
+    </div> --}}
 
-      {{!-- <select name="month" class="form-control ">
+      <select name="month" class="form-control col-4  m-auto">
 			<option value="1" >一月</option>
 			<option value="2" >二月</option>
 			<option value="3" >三月</option>
@@ -43,37 +43,32 @@
 
 		
 	  
-      <select name="category"class="form-control">
+      <select name="category"class="form-control col-4 mr-5">
 				<option value="all">全部</option>
 				<option value="homeProperty">家居物業</option>
 				<option value="traffic">交通出行</option>
 				<option value="entertainment">休閒娛樂</option>
 				<option value="food">餐飲食品</option>
 				<option value="others">其他</option>
-			</select> --}}
-		
-			
-	    <div class ="row">
-        <button class="btn btn-outline-info btn-sm col-1" type="submit">查詢支出</button>
-			</div>
-			
+			</select> 
+      
+			<button class="btn btn-outline-info btn-sm" type="submit">查詢支出
+			</button>	
 	</form>
+</div>	
 
-	<form class="mr-2 col-1" action="/records/new">
-		<button class="btn btn-outline-info btn-sm" type="submit">新增支出</button>
+<div class ="row">
+	<form class="col-12 " action="/records/new">
+		<button class="btn btn-outline-success w-100" type="submit">新增支出</button>
 	</form>
 </div>
-	
-	
-	
 
-
-<div class="container row p-5">
+<div class="container row p-3">
 	{{!-- display total amount --}}
-	<div class="col-6">
+	<div class="col-6 m-auto">
     
 		<label for="totalAmount">Total Amount</label>
-		<h2 class="text-center text-danger w-75 p-3" id="totalAmount">{{totalAmount}}</h2>
+		<h2 class="text-center text-danger" id="totalAmount">{{totalAmount}}</h2>
 	
 	</div>
 	
@@ -90,16 +85,18 @@
 		<li class="list-group-item">
 			<div class="row">
 				<div class="col-auto mr-auto">
-					{{#if records}}
-              <i class="fas fa-{{image}} mt-3 ml-3"></i>
-            {{/if}}
+					{{#ifcategoryicon records}}
+              <i class="fas fa-{{categoryimage}} ml-3 mt-3 w-100" ></i>
+            {{/ifcategoryicon }}
 				</div>
-				<div class="col-auto mr-auto">
+				<div class=" mr-auto ">
 					<p style="display: inline; vertical-align:middle;">{{this.name}}</p>
-					{{!-- <p style="display: inline; vertical-align:middle;">{{this.date}}</p> --}}
+					{{#ifdate records}}
+					<p style="vertical-align:middle;font-size:10px;">{{date}}</p>
+					{{/ifdate}}
 				</div>
-				<div class="col-auto mr-auto">
-					<h4 style="display: inline; vertical-align:middle;">{{this.amount}}</h4>
+				<div class="col-auto mr-auto mt-4">
+					<h5 style="display: inline; vertical-align:middle;">{{this.amount}}</h5>
 				</div>
 				<div class="col-auto">
 					<a href="/records/{{{this.id}}}/edit?_method=PUT" class="btn btn-success">edit</a>
