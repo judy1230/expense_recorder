@@ -1,8 +1,5 @@
 const express = require('express')
 const app = express()
-if (process.env.NODE_ENV !== 'production') {      // 如果不是 production 模式
-	require('dotenv').config()                      // 使用 dotenv 讀取 .env 檔案
-}
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
@@ -11,6 +8,11 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 const passport = require('passport')
 const flash = require('connect-flash')
+require('./handlebarsHelper.js')
+
+if (process.env.NODE_ENV !== 'production') {      // 如果不是 production 模式
+	require('dotenv').config()                      // 使用 dotenv 讀取 .env 檔案
+}
 
 const db = mongoose.connection
 

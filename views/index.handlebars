@@ -1,7 +1,31 @@
 {{> messages}}
-	<form action="/filter">
+<div class = "container row p-5">
+  <form action="/filter">
+    
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text"   for="inputGroupSelect01">month</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect01">
+        <option selected>Choose...</option>
+        <option value="1">一月</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+		<div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text"   for="inputGroupSelect01">Options</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect01">
+        <option selected>Choose...</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
 
-		<select name="month" class="form-control">
+      {{!-- <select name="month" class="form-control ">
 			<option value="1" >一月</option>
 			<option value="2" >二月</option>
 			<option value="3" >三月</option>
@@ -15,22 +39,31 @@
 			<option value="11">十一月</option>
 			<option value="12">十二月</option>
 		</select>
-	
-			<select name="category"class="form-control">
+		
+
+		
+	  
+      <select name="category"class="form-control">
 				<option value="all">全部</option>
 				<option value="homeProperty">家居物業</option>
 				<option value="traffic">交通出行</option>
 				<option value="entertainment">休閒娛樂</option>
 				<option value="food">餐飲食品</option>
 				<option value="others">其他</option>
-			</select>
-	
-			<button class="btn btn-outline-info btn-sm" type="submit">查詢支出</button>
+			</select> --}}
+		
+			
+	    <div class ="row">
+        <button class="btn btn-outline-info btn-sm col-1" type="submit">查詢支出</button>
+			</div>
+			
 	</form>
 
-	<form class="mr-2" action="/records/new">
+	<form class="mr-2 col-1" action="/records/new">
 		<button class="btn btn-outline-info btn-sm" type="submit">新增支出</button>
 	</form>
+</div>
+	
 	
 	
 
@@ -57,7 +90,13 @@
 		<li class="list-group-item">
 			<div class="row">
 				<div class="col-auto mr-auto">
-					<h4 style="display: inline; vertical-align:middle;">{{this.name}}</h4>
+					{{#if records}}
+              <i class="fas fa-{{image}} mt-3 ml-3"></i>
+            {{/if}}
+				</div>
+				<div class="col-auto mr-auto">
+					<p style="display: inline; vertical-align:middle;">{{this.name}}</p>
+					{{!-- <p style="display: inline; vertical-align:middle;">{{this.date}}</p> --}}
 				</div>
 				<div class="col-auto mr-auto">
 					<h4 style="display: inline; vertical-align:middle;">{{this.amount}}</h4>

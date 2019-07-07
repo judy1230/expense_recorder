@@ -4,6 +4,7 @@ const router = express.Router()
 const Record= require('../models/record.js')
 const { authenticated } = require('../config/auth.js')
 let totalAmount = 0
+const categoryList = ['traffic', 'home']
 // // restaurant 首頁
 // router.get('/', authenticated, (req, res) => {
 	
@@ -20,11 +21,12 @@ let totalAmount = 0
 
 //record首頁
 router.get('/', authenticated, (req, res) =>{
+	
 	req.flash('success_msg','welcom! 你已成功登入')
 	Record.find({ userID: req.user._id })
 	.sort({date : 1})
 	.exec((err, records) =>{
-		console.log('records',records)
+		//console.log('records',records)
 		if(err) return console.error(err)
 		if (totalAmount == 0){
       for (let i = 0; i < records.length; i++){		
