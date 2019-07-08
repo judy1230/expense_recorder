@@ -40,17 +40,19 @@ router.get('/filter', authenticated, (req, res) => {
 	Record.find({ userID: req.user._id }, (err, records) => {
 		
 		if (err) return console.error(err)
-
+    
 		const recordSearch = records.filter(({ date, category }) => {
 			
 			if (filteredCategory === 'all' && date.getMonth()+1 === filteredMonth){
+				//console.log('filteredMonth', filteredMonth)
+				//console.log('date.getMonth(5)', date.getMonth(5))
 				return date.getMonth(filteredMonth)	
+			} 
+			if (filteredCategory !== 'all' && date.getMonth() + 1 === filteredMonth) {
+				return  category.includes(filteredCategory)
 			}	
-			
-			return (date.getMonth(filteredMonth) && category.includes(filteredCategory))
 		})
-		
-		console.log('recordSearch', recordSearch)
+		//console.log('recordSearch', recordSearch)
 		if(totalAmount === 0){
       for (let i = 0; i < recordSearch.length; i++){		
 			totalAmount += parseInt(recordSearch[i].amount)
