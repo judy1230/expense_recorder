@@ -26,8 +26,20 @@
 	{
 		"name": "電信費",
 		"category": "others",
-		"timestamp": "2019-07-2T17:11:28.774+00:00",
+		"timestamp": "2019-07-02T17:11:28.774+00:00",
 		"amount": "999"
+	},
+	{
+		"name": "早餐",
+		"category": "food",
+		"timestamp": "2019-06-02T07:11:28.774+00:00",
+		"amount": "100"
+	},
+	{
+		"name": "晚餐",
+		"category": "food",
+		"timestamp": "2019-06-02T18:11:28.774+00:00",
+		"amount": "100"
 	}
 
 ]

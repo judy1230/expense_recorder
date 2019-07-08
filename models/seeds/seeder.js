@@ -4,8 +4,8 @@ const recordList = require('./record.json')
 const User = require('../user.js')
 const bcrypt = require('bcryptjs')
 
-const templeUser = [{ name: '', email: 'user1@example.com', password: '12345678' },
-{ name: '', email: 'user2@example.com', password: '12345678' }]
+const templeUser = [{ name: '', email: 'user5@example.com', password: '12345678' },
+{ name: '', email: 'user6@example.com', password: '12345678' }]
 
 
 mongoose.connect('mongodb://localhost/record', { useNewUrlParser: true })
@@ -50,7 +50,7 @@ function generateRecords(user, recordList){
 				"userID": user._id,
 				"name": recordList.results[j].name,
 				"category": recordList.results[j].category,
-				"timestamp": recordList.results[j].timestamp,
+				"date": recordList.results[j].timestamp,
 				"amount": recordList.results[j].amount
 			})
 		}

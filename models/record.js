@@ -18,9 +18,6 @@ const recordSchema = new Schema({
 		type: Date,
 		default: Date.now(),
 	},
-	// createdAt:{
-	// 	type: Schema.Types.Date
-	// },
 	amount: {
 		type: String,
 		required: true

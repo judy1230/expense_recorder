@@ -9,7 +9,8 @@ let totalAmount = 0
 
 //record首頁
 router.get('/', authenticated, (req, res) =>{
-	
+
+	const filteredMonth = 7 
 	req.flash('success_msg','welcome! 你已成功登入')
 	Record.find({ userID: req.user._id })
 	.sort({date : 1})
@@ -22,38 +23,44 @@ router.get('/', authenticated, (req, res) =>{
 		  }
 		}
 		
-		return res.render('index', { records : records, totalAmount : totalAmount})
+		return res.render('index', { 
+			records : records, 
+			totalAmount : totalAmount,
+			filteredMonth : filteredMonth
+		})
 	})
 })
 
 //filter Records
 router.get('/filter', authenticated, (req, res) => {
 	let totalAmount = 0
-	const filteredMonth = req.query.month
+	const filteredMonth =  parseInt(req.query.month)
 	const filteredCategory = req.query.category
-	console.log('filteredMonth', filteredMonth)
-	console.log('filteredCategory', filteredCategory)
 	
 	Record.find({ userID: req.user._id }, (err, records) => {
 		
-		
 		if (err) return console.error(err)
 
-		const recordSearch = records.filter(({ filteredMonth, category }) => {
-			if (filteredCategory === 'all'){
-				
-				return ({ "date": { $gte: new Date(2019, filteredMonth, 1), $lt: new Date(2019, filteredMonth, 31) }})
-			}		
-			return ({ "date": { $gte: new Date(2019, filteredMonth, 1), $lt: new Date(2019, filteredMonth, 31) } } && category.includes(filteredCategory))
+		const recordSearch = records.filter(({ date, category }) => {
+			
+			if (filteredCategory === 'all' && date.getMonth()+1 === filteredMonth){
+				return date.getMonth(filteredMonth)	
+			}	
+			
+			return (date.getMonth(filteredMonth) && category.includes(filteredCategory))
 		})
 		
+		console.log('recordSearch', recordSearch)
 		if(totalAmount === 0){
       for (let i = 0; i < recordSearch.length; i++){		
 			totalAmount += parseInt(recordSearch[i].amount)
 		  }
 		}
 		
-		return res.render('index', { records: recordSearch, totalAmount: totalAmount, filteredCategory : filteredCategory, filteredMonth : filteredMonth  })
+		return res.render('index', { 
+			records: recordSearch, 
+			totalAmount: totalAmount, 
+			filteredCategory : filteredCategory, filteredMonth : filteredMonth  })
   })
 })
 
