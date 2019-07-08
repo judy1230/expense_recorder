@@ -9,14 +9,16 @@ router.get('/new', authenticated, (req, res) =>{
 })
 //create new records
 router.post('/', authenticated, (req, res) => {
-	console.log(req)
+	const { name, category, date, amount} = req.body
+	let errors = []
 	const record = Record({
-		name:req.body.name,
+		userID:  req.user._id,
+		name: req.body.name,
 		category: req.body.category,
 	  date: req.body.date,
 		amount: req.body.amount
 	})
-
+  //console.log('record', record)
 	if (!name || !category || !date || !amount) {
 		errors.push({ message: '所有項目必填!' })
 		console.log('errors.length', errors.length)
@@ -61,11 +63,6 @@ router.put('/:id', authenticated, (req, res) => {
 	})
 })
 
-//show record
-// router.get('/records/:id', (req,res) =>{
-// 	res.send('display record info.')
-	
-// })
 
 //delete record
 router.delete('/:id/delete', authenticated, ( req, res ) =>{
@@ -79,4 +76,5 @@ router.delete('/:id/delete', authenticated, ( req, res ) =>{
 			})
 	})
 })
+
 module.exports = router

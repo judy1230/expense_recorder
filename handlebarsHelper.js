@@ -1,7 +1,6 @@
 const Handlebars = require('handlebars')
 
 Handlebars.registerHelper('ifcategoryicon', function (context, options) {
-	console.log('this.category',this.category)
 	if(this.category === 'homeProperty'){
     return options.fn({ categoryimage: 'home'})
 	}
@@ -31,7 +30,10 @@ Handlebars.registerHelper('ifdate', function (context, options) {
   let monthIndex = this.date.getMonth();
   let year = this.date.getFullYear();
 	deteContent = day + '/' + month[monthIndex] + '/' + year
-	console.log(day + '/' + month[monthIndex] + '/' + year) 
 	
   return options.fn({date: deteContent})
+})
+
+Handlebars.registerHelper('ifSelected', function (arg1, arg2, options) {
+  return (arg1 == arg2) ? options.fn(this) : options.inverse(this)
 })

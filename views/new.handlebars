@@ -1,43 +1,26 @@
-{{> messages}}
+
 <form action="/records" method="POST">
 <div class="container text-center mb-4">
 	<h3>請輸入你的支出</h3>
 </div>
+{{> messages}}
 <div class="container text-center">
+
 	<div class="input-group mb-4">
 		<div class="input-group-prepend">
 			<span class="input-group-text" >名稱:</span>
 		</div>
-		<input type="text" class="form-control" aria-label="Sizing example input" name="name"
+		<input type="text" name="name" class="form-control" aria-label="Sizing example input" 
 			aria-describedby="inputGroup-sizing-default">
 	</div>
 
-
-	<div class="input-group mb-4">
+  <div class="input-group mb-4">
 		<div class="input-group-prepend">
 			<span class="input-group-text" >日期:</span>
 		</div>
-		<div class="container">
-    <div class="row">
-        <div class='col-sm-6'>
-            <div class="form-group">
-                <div class='input-group date' id='datetimepicker1'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker1').datetimepicker();
-            });
-        </script>
-    </div>
-</div>
+		<input type="date" name="date" class="form-control" aria-label="Sizing example input" 
+			aria-describedby="inputGroup-sizing-default">
 	</div>
-	
 	
 	
 	<div class="input-group mb-4">

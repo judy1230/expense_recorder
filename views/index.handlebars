@@ -2,58 +2,37 @@
 <div class = "container row p-4">
   
     {{> messages}}
-    {{!-- <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text"   for="inputGroupSelect01">month</label>
-      </div>
-      <select class="custom-select" id="inputGroupSelect01">
-        <option selected>Choose...</option>
-        <option value="1">一月</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div>
-		<div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text"   for="inputGroupSelect01">Options</label>
-      </div>
-      <select class="custom-select" id="inputGroupSelect01">
-        <option selected>Choose...</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-      </select>
-    </div> --}}
 
-      <select name="month" class="form-control col-4  m-auto">
-			<option value="1" >一月</option>
-			<option value="2" >二月</option>
-			<option value="3" >三月</option>
-			<option value="4" >四月</option>
-			<option value="5" >五月</option>
-			<option value="6" >六月</option>
-			<option value="7" >七月</option>
-			<option value="8" >八月</option>
-			<option value="9" >九月</option>
-			<option value="10">十月</option>
-			<option value="11">十一月</option>
-			<option value="12">十二月</option>
-		</select>
+  <select name="month" selected="{{filteredMonth}}"class="form-control col-4  m-auto">
+	  <option value="1" {{#ifSelected filteredMonth "1"}} selected {{/ifSelected}}>一月</option>
+		<option value="2" {{#ifSelected filteredMonth "2"}} selected {{/ifSelected}}>二月</option>
+		<option value="3" {{#ifSelected filteredMonth "3"}} selected {{/ifSelected}}>三月</option>
+		<option value="4" {{#ifSelected filteredMonth "4"}} selected {{/ifSelected}}>四月</option>
+		<option value="5" {{#ifSelected filteredMonth "5"}} selected {{/ifSelected}}>五月</option>
+		<option value="6" {{#ifSelected filteredMonth "6"}} selected {{/ifSelected}}>六月</option>
+		<option value="7" {{#ifSelected filteredMonth "7"}} selected {{/ifSelected}}>七月</option>
+		<option value="8" {{#ifSelected filteredMonth "8"}} selected {{/ifSelected}}>八月</option>
+		<option value="9" {{#ifSelected filteredMonth "9"}} selected {{/ifSelected}}>九月</option>
+		<option value="10"{{#ifSelected filteredMonth "10"}} selected {{/ifSelected}}>十月</option>
+		<option value="11"{{#ifSelected filteredMonth "11"}} selected {{/ifSelected}}>十一月</option>
+		<option value="12"{{#ifSelected filteredMonth "12"}} selected {{/ifSelected}}>十二月</option>
+	</select>
 		
 
 		
 	  
-      <select name="category"class="form-control col-4 mr-5">
-				<option value="all">全部</option>
-				<option value="homeProperty">家居物業</option>
-				<option value="traffic">交通出行</option>
-				<option value="entertainment">休閒娛樂</option>
-				<option value="food">餐飲食品</option>
-				<option value="others">其他</option>
-			</select> 
+  <select name="category" class="form-control col-4 mr-5">
+		<option value="all" {{#ifSelected filteredCategory "all"}} selected {{/ifSelected}}>全部</option>
+		<option value="homeProperty" {{#ifSelected filteredCategory 'homeProperty'}}selected{{/ifSelected}}>家居物業</option>
+		<option value="traffic" {{#ifSelected filteredCategory "traffic"}} selected {{/ifSelected}}>交通出行</option>
+		<option value="entertainment" {{#ifSelected filteredCategory "entertainment"}} selected {{/ifSelected}}>休閒娛樂</option>
+		<option value="food" {{#ifSelected filteredCategory "food"}} selected {{/ifSelected}}>餐飲食品</option>
+		<option value="others" {{#ifSelected category "others"}} selected {{/ifSelected}}>其他</option>
+	</select> 
       
-			<button class="btn btn-outline-info btn-sm" type="submit">查詢支出
-			</button>	
+	<button class="btn btn-outline-info btn-sm" type="submit">查詢支出
+	</button>	
+	
 	</form>
 </div>	
 
