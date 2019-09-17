@@ -30,30 +30,30 @@
 			{{{body}}}
 		</div>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-  <script>
-		var labels = ['輕微', '普通', '嚴重', '崩潰'];
-			var total1 = 0;
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script> 
+  {{!-- <script>
+		let labels = ['家居物業', '交通出行', '休閒娛樂', '餐飲食品', '其他'];
+			let total1 = 0;
 
-			var ctx = document.getElementById('amountChart').getContext('2d');
-			var pieChart = new Chart(ctx, {
+			let ctx = document.getElementById('amountChart').getContext('2d');
+			let pieChart = new Chart(ctx, {
 				type: 'pie',
 				data: {
 					labels: [],
 					datasets: [{
 						//預設資料
-						data: [10, 20, 30, 40],
+						data: [10, 20, 30, 20, 20],
 						backgroundColor: [
 							//資料顏色
 							"#F0F8FF",
 							"#5599FF",
 							"#FFFF77",
-							"#FF8888"
+							"#FF8888",
+							'#3cba9f'
 						],
 					}],
 				},
 				options: {
-
 					animation: {
 						animateScale: true,
 						animateRotate: true
@@ -62,13 +62,13 @@
 					tooltips: {
 						callbacks: {
 							label: function (tooltipItem, data) {
-								var dataset = data.datasets[tooltipItem.datasetIndex];
+								let dataset = data.datasets[tooltipItem.datasetIndex];
 								//計算總和
-								var sum = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
+								let sum = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
 									return previousValue + currentValue;
 								});
-								var currentValue = dataset.data[tooltipItem.index];
-								var percent = Math.round(((currentValue / sum) * 100));
+								let currentValue = dataset.data[tooltipItem.index];
+								let percent = Math.round(((currentValue / sum) * 100));
 								return " " + data.labels[tooltipItem.index] + ":" + currentValue + " (" + percent + " %)";
 							}
 						}
@@ -80,19 +80,19 @@
 						position: 'left',
 						labels: {
 							generateLabels: function (chart) {
-								var data = chart.data;
+								let data = chart.data;
 								if (data.labels.length && data.datasets.length) {
 									return data.labels.map(function (label, i) {
-										var ds = data.datasets[0];
-										var arc = chart.getDatasetMeta(0).data[i];
-										var custom = arc && arc.custom || {};
-										var getValueAtIndexOrDefault = Chart.helpers.getValueAtIndexOrDefault;
-										var arcOpts = chart.options.elements.arc;
-										var fill = custom.backgroundColor ? custom.backgroundColor : getValueAtIndexOrDefault(ds.backgroundColor, i, arcOpts.backgroundColor);
-										var stroke = custom.borderColor ? custom.borderColor : getValueAtIndexOrDefault(ds.borderColor, i, arcOpts.borderColor);
-										var bw = custom.borderWidth ? custom.borderWidth : getValueAtIndexOrDefault(ds.borderWidth, i, arcOpts.borderWidth);
+										let ds = data.datasets[0];
+										let arc = chart.getDatasetMeta(0).data[i];
+										let custom = arc && arc.custom || {};
+										let getValueAtIndexOrDefault = Chart.helpers.getValueAtIndexOrDefault;
+										let arcOpts = chart.options.elements.arc;
+										let fill = custom.backgroundColor ? custom.backgroundColor : getValueAtIndexOrDefault(ds.backgroundColor, i, arcOpts.backgroundColor);
+										let stroke = custom.borderColor ? custom.borderColor : getValueAtIndexOrDefault(ds.borderColor, i, arcOpts.borderColor);
+										let bw = custom.borderWidth ? custom.borderWidth : getValueAtIndexOrDefault(ds.borderWidth, i, arcOpts.borderWidth);
 
-										var value = chart.config.data.datasets[chart.getDatasetMeta(0).data[i]._datasetIndex].data[chart.getDatasetMeta(0).data[i]._index];
+										let value = chart.config.data.datasets[chart.getDatasetMeta(0).data[i]._datasetIndex].data[chart.getDatasetMeta(0).data[i]._index];
 
 										return {
 											text: label + " : " + value,
@@ -112,7 +112,44 @@
 				},
 
 			});
-	</script>
+	</script>  --}}
+<script>
+	 let labels = ['家居物業', '交通出行', '休閒娛樂', '餐飲食品', '其他'];
+
+		let ctx = document.getElementById('amountChart').getContext('2d');
+		let pieChart = new Chart(ctx, {
+			type: 'pie',
+			data: {
+				labels: labels,
+				datasets: [{
+					label: '# of Votes',
+					data:  {{chartData}},
+					backgroundColor: [
+						"#F0F8FF",
+						"#5599FF",
+						"#FFFF77",
+						"#FF8888",
+						"#3cba9f"
+					],
+					
+				}]
+			},
+			options: {
+				legend: {
+					display: false,
+					labels: {
+						fontColor: 'rgb(255, 99, 132)'
+					}
+				}
+			}
+		});
+
+
+	
+
+
+</script>
+
 	</main>
 			
 		
@@ -129,6 +166,7 @@
 	</script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js">
 	</script>	
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 </body>	
 

@@ -36,8 +36,8 @@
 		"amount": "100"
 	},
 	{
-		"name": "晚餐",
-		"category": "food",
+		"name": "垃圾袋",
+		"category": "homeProperty",
 		"timestamp": "2019-06-02T18:11:28.774+00:00",
 		"amount": "100"
 	}

@@ -4,9 +4,10 @@ const recordList = require('./record.json')
 const User = require('../user.js')
 const bcrypt = require('bcryptjs')
 
-const templeUser = [{ name: '', email: 'user5@example.com', password: '12345678' },
-{ name: '', email: 'user6@example.com', password: '12345678' }]
-
+// const templeUser = [{ name: '', email: 'user5@example.com', password: '12345678' },
+// { name: '', email: 'user6@example.com', password: '12345678' }]
+//const templeUser = [{ name: '', email: 'user5@example.com', password: '12345678' }]
+const templeUser = [{ name: '', email: 'user7@example.com', password: '12345678' }]
 
 mongoose.connect('mongodb://localhost/record', { useNewUrlParser: true })
 
@@ -45,14 +46,19 @@ db.once('open', () => {
 })	
 
 function generateRecords(user, recordList){
+	console.log('recordList', recordList)
+	// for (let i = 10; i < 13; i++){
 		for (let j = 0; j < recordList.results.length; j++) {
 			Record.create({
 				"userID": user._id,
 				"name": recordList.results[j].name,
 				"category": recordList.results[j].category,
-				"date": recordList.results[j].timestamp,
+			  "date": recordList.results[j].timestamp,
+				//"date": `2019-${i}-27T12:11:28.774+00:00`,
 				"amount": recordList.results[j].amount
 			})
 		}
+	// }
+		
 	console.log('records insert done')
 }
