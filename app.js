@@ -52,12 +52,9 @@ app.use(flash())
 
 app.use((req, res, next) => {
 	res.locals.user = req.user
-	console.log('req.user', req.user)
 	res.locals.isAuthenticated = req.isAuthenticated()
 	res.locals.success_msg = req.flash('success_msg')
 	res.locals.warning_msg = req.flash('warning_msg')
-	res.locals.chartDate = req.chartDate
-	console.log('req.chartDate', req.chartDate)
 	next()
 })
 

@@ -29,7 +29,7 @@
 		<div class="container mt-3">
 			{{{body}}}
 		</div>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script> 
   {{!-- <script>
 		let labels = ['家居物業', '交通出行', '休閒娛樂', '餐飲食品', '其他'];
@@ -123,7 +123,7 @@
 				labels: labels,
 				datasets: [{
 					label: '# of Votes',
-					data:  {{chartData}},
+					data:  [{{ chartData }}],
 					backgroundColor: [
 						"#F0F8FF",
 						"#5599FF",
