@@ -6,15 +6,9 @@ const { authenticated } = require('../config/auth.js')
 //const { getChart } = require('../config/chart.js')
 require('../handlebarsHelper')
 
-let valueOfHomeProperty = 0
-let valueOfTraffic = 0
-let valueOfEntertainment = 0
-let valueOfFood = 0
-let valueOfOthers = 0
+
 
 //record首頁
-
-
 router.get('/', authenticated, (req, res) =>{
 	req.flash('success_msg','welcome! 你已成功登入')
 	let totalAmount = 0
@@ -23,7 +17,7 @@ router.get('/', authenticated, (req, res) =>{
 	let valueOfEntertainment = 0
 	let valueOfFood = 0
 	let valueOfOthers = 0
-	let filteredMonth = 6
+	let filteredMonth = new Date().getMonth()+1
 
 	Record.find({ userID: req.user._id }, (err, records) => {
 		if (err) return console.error(err)
@@ -115,29 +109,19 @@ router.get('/', authenticated, (req, res) =>{
 			}
 		}
 		console.log('totalAmount', totalAmount)
-		//totalvalue = valueOfOthers + valueOfFood + valueOfEntertainment + valueOfTraffic + valueOfHomeProperty
-
 		let chartData = [valueOfHomeProperty, valueOfTraffic, valueOfEntertainment, valueOfFood, valueOfOthers]
 		console.log('chartData', chartData)
-
 		  res.render('index', {
 			records: recordsPresent,
 			totalAmount: totalAmount,
 			filteredMonth: filteredMonth,
 			chartData: chartData
 		})
-
-
-
 	})
 		.sort({ date: 1 })
-		.exec((err) => {
-			
+		.exec((err) => {			
 			if (err) return console.error(err)
-
 		})
-	
-
 })
 
 //filter Records
@@ -177,11 +161,6 @@ router.get('/filter', authenticated, (req, res) => {
 		const chartDateEntertainment = recordSearch.filter(({ date, category }) => {
 				return category.includes('entertainment')
 		})
-		// const chartDateEntertainment = records.filter(({ date, category }) => {
-		// 	if (date.getMonth() + 1 === filteredMonth && filteredCategory === 'entertainment') {
-		// 		return category.includes('entertainment')
-		// 	}
-		// })
 
 		const chartDataFood = recordSearch.filter(({ date, category }) => {
 						return category.includes('food')
@@ -190,25 +169,18 @@ router.get('/filter', authenticated, (req, res) => {
 		const chartDataOthers = recordSearch.filter(({ date, category }) => {
 				return category.includes('others')
 		})
-		
-		
+				
 		if (totalAmount  == 0) {
-			
-
 			for (let i = 0; i < recordSearch.length; i++) {
 				totalAmount += parseInt(recordSearch[i].amount)
-			}
-			
-			for (let i = 0; i < chartDataHomeProperty.length; i++) {
-				
+			}		
+			for (let i = 0; i < chartDataHomeProperty.length; i++) {			
 				valueOfHomeProperty += (chartDataHomeProperty[i].amount) 
 				valueOfHomeProperty = Math.round(valueOfHomeProperty) / totalAmount * 100
 				if (valueOfHomeProperty > 100) {
 					valueOfHomeProperty = 100
 				}
-				console.log('valueOfHomeProperty223 ', valueOfHomeProperty)
 			}
-			
 			for (let i = 0; i < chartDataTraffic.length; i++) {
 				valueOfTraffic += (chartDataTraffic[i].amount) / totalAmount * 100
 				valueOfTraffic = Math.round(valueOfTraffic)
@@ -229,8 +201,7 @@ router.get('/filter', authenticated, (req, res) => {
 				if (valueOfFood > 100) {
 					valueOfFood = 100
 				}
-			}
-			
+			}	
 			for (let i = 0; i < chartDataOthers.length; i++) {
 				valueOfOthers += (chartDataOthers[i].amount) / totalAmount * 100
 				valueOfOthers = Math.round(valueOfOthers)
@@ -239,6 +210,7 @@ router.get('/filter', authenticated, (req, res) => {
 				}
 			}
 		}	
+
 		let chartData = [valueOfHomeProperty, valueOfTraffic, valueOfEntertainment, valueOfFood, valueOfOthers]
 		console.log('chartData', chartData)
 		return res.render('index', { 

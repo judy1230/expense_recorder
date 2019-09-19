@@ -18,10 +18,7 @@
 		<option value="11"{{#ifSelected filteredMonth "11"}} selected {{/ifSelected}}>十一月</option>
 		<option value="12"{{#ifSelected filteredMonth "12"}} selected {{/ifSelected}}>十二月</option>
 	</select>
-		
-
-		
-	  
+		 
   <select name="category" class="form-control col-4 mr-5">
 		<option value="all" {{#ifSelected filteredCategory "all"}} selected {{/ifSelected}}>全部</option>
 		<option value="homeProperty" {{#ifSelected filteredCategory 'homeProperty'}}selected{{/ifSelected}}>家居物業</option>
@@ -54,7 +51,7 @@
 	{{!-- display chart --}}
 	
 	<div  class="col-3">
-		<canvas id="amountChart" width="300" height="500"></canvas>
+		<canvas id="amountChart" width="250" height="250"></canvas>
 	</div>
 	
 </div>
