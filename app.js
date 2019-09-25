@@ -55,10 +55,12 @@ app.use((req, res, next) => {
 	res.locals.isAuthenticated = req.isAuthenticated()
 	res.locals.success_msg = req.flash('success_msg')
 	res.locals.warning_msg = req.flash('warning_msg')
+	//res.locals.recordSearch = req.recordSearch
 	next()
 })
 
 app.use('/', require('./routes/home.js'))
+//app.use('/filter', require('./routes/filterRecords.js'))
 app.use('/records', require('./routes/records.js'))
 app.use('/users', require('./routes/users.js'))
 app.use('/auth', require('./routes/auths.js'))
