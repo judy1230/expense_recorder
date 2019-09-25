@@ -5,6 +5,7 @@ module.exports = {
 	getChart: async(req, res) => {
 		
 		try{
+
 			let totalAmount = 0
 			let valueOfHomeProperty = 0
 			let valueOfTraffic = 0
@@ -20,7 +21,7 @@ module.exports = {
 					$lt: `2019-0${filteredMonth + 1}-01T12:11:28.774+00:00`
 				}
 			})
-			console.log('recordsDisplay in chart', recordsDisplay  )
+			//console.log('recordsDisplay in chart', recordsDisplay  )
 			const recordSearch = recordsDisplay.filter(({ category }) => {
 				if (filteredCategory === 'all' ) {
 					return recordsDisplay
@@ -29,7 +30,7 @@ module.exports = {
 					return category.includes(filteredCategory)
 				}
 			})
-			console.log('recordSearch in chartjs', recordSearch)
+			//console.log('recordSearch in chartjs', recordSearch)
 			const chartDataHomeProperty = await recordSearch.filter(({ date, category }) => {
 				return category.includes('homeProperty')
 			})
