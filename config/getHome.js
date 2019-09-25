@@ -39,6 +39,7 @@ module.exports = {
 			//console.log('recordsDisplay', recordsDisplay)
 			let chartData = []
 			let categoryItemArray = ['homeProperty', 'traffic', 'entertainment','food','others']
+			//let categoryItemArray = ['homeProperty']
 
 			categoryItemArray.forEach(function (items) {
 				const chartDataPerItem = recordsDisplay.filter(({ category }) => {
@@ -49,11 +50,13 @@ module.exports = {
 				// 	itemsPerValue += (chartDataPerItem[j].amount) / totalAmount * 100
 				// 	itemsPerValue = Math.round(itemsPerValue)
 				// }
+
+				///////// check itemsPerValue is wrong//////
 				chartDataPerItem.forEach((item) =>{
-					itemsPerValue += item.amount
+					itemsPerValue += parseInt(item.amount) 
 					console.log('itemsPerValue', itemsPerValue)
 					itemsPerValue = Math.round(itemsPerValue/totalAmount*100)
-					
+					console.log('itemsPerValue', itemsPerValue)
 				})
 				chartData.push(itemsPerValue)
 				console.log('chartData', chartData)
