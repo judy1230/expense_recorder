@@ -47,18 +47,18 @@ db.once('open', () => {
 
 function generateRecords(user, recordList){
 	console.log('recordList', recordList)
-	// for (let i = 10; i < 13; i++){
+	 for (let i = 1; i < 13; i++){
 		for (let j = 0; j < recordList.results.length; j++) {
 			Record.create({
 				"userID": user._id,
 				"name": recordList.results[j].name,
 				"category": recordList.results[j].category,
-			  "date": recordList.results[j].timestamp,
-				//"date": `2019-${i}-27T12:11:28.774+00:00`,
+			  //"date": recordList.results[j].timestamp,
+				"date": `2019-${i}-27`,
 				"amount": recordList.results[j].amount
 			})
 		}
-	// }
+	 }
 		
 	console.log('records insert done')
 }
