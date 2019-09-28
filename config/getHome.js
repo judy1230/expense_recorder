@@ -4,15 +4,14 @@ const User = db.User
 const { Op } = require('sequelize')
 module.exports = {
 
-  getHome: async(req, res) => {
-		
-		try{
-			
+  getHome: async(req, res) => {		
+		try{			
 			let totalAmount = 0
 			let itemsPerValue = 0
 			let filteredMonth = new Date().getMonth() + 1
 			let chartData = []
 			let categoryItemArray = ['homeProperty', 'traffic', 'entertainment', 'food', 'others']
+
 			const records = await User.findByPk(req.user.id)
 			//User.findByPk(req.user.id)
 				.then((user) => {
@@ -27,19 +26,20 @@ module.exports = {
 					})
 				})
 				.then((records) => {
-					console.log('records37', records)
-					//console.log('records', records)
-					//return res.render('index', { records: records })
 					records.forEach((item) =>
 						totalAmount += parseInt(item.amount))
 					categoryItemArray.forEach(function (items) {
 						const chartDataPerItem = records.filter(({ category }) => {
 							return category.includes(items)
 						})
-						chartDataPerItem.forEach((item) => {
-							itemsPerValue += parseInt(item.amount)
-							itemsPerValue = Math.round(itemsPerValue / totalAmount * 100)
-						})
+						if (Array.isArray(chartDataPerItem) && chartDataPerItem.length) {
+							chartDataPerItem.forEach((item) => {
+								itemsPerValue += parseInt(item.amount)
+								itemsPerValue = Math.round(itemsPerValue / totalAmount * 100)
+							})
+						} else {
+							itemsPerValue = 0
+						}
 						chartData.push(itemsPerValue)
 					})
 					return res.render('index', {
