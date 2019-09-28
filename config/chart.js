@@ -1,6 +1,7 @@
 const db = require('../models')
 const Record = db.Record
 const User = db.User
+const getAmount = require('../config/genAmount.js')
 const { Op } = require('sequelize')
 module.exports = {	
 	getChart: async(req, res) => {
@@ -26,7 +27,9 @@ module.exports = {
 	  	})
 		   .then((records) => {
 				 console.log('records', records)
-				 totalAmount = Amount(records)
+				 //totalAmount = Amount(records)
+				 totalAmount = getAmount(records)
+				 console.log('totalAmount', totalAmount)
 				 chartData = getCategoryItem(records)
 			    return res.render('index', {
 				    records: records,
