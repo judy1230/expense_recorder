@@ -10,40 +10,33 @@ router.get('/new', authenticated, (req, res) =>{
 	res.render('new')
 })
 //create new records
-router.post('/', authenticated, (req, res) => {
+router.post('/', authenticated, async(req, res) => {
 	const { name, category, date, amount} = req.body
 	let errors = []
-	Record.create({
-		name: req.body.name,
-		category: req.body.category,
-		date: req.body.date,
-		amount: req.body.amount,
-		UserId: req.user.id
-	})
-
-		.then((record) => { 
-			if (!name || !category || !date || !amount) {
-				errors.push({ message: '所有項目必填!' })
-			}
-
-			if (errors.length > 0) {
-				res.render('new', {
-					errors,
-					name,
-					category,
-					date,
-					amount
-				})
-			} else {
-				record.save((err) => {
-					if (err) return console.log(err)
-					console.log(`add ${req.body.name} is in sequelize!`)
-					return res.redirect('/')
-				})
-			}
-			return res.redirect('/') })
-		.catch((error) => { return res.status(422).json(error) })
-
+	if (!name || !category || !date || !amount) {
+		errors.push({ message: '所有項目必填!' })
+	}
+	if (errors.length > 0) {
+		res.render('new', {
+			errors,
+			name,
+			category,
+			date,
+			amount
+		})
+	} else {
+			Record.create({
+				name: name,
+				category: category,
+				date: date,
+				amount: amount,
+				UserId: req.user.id
+			}).then((record) => {
+				record.save()
+				console.log(`////////add ${name} is in sequelize!///////`)
+				return res.redirect('/')
+			}).catch((error) => { return res.status(422).json(error) })
+	}
 })
 
 //modify records
@@ -68,13 +61,12 @@ router.put('/:id', authenticated, (req, res) => {
 			UserId: req.user.id,
 		}
 	})
-		.then((record) => {
-			record.name = req.body.name
-			record.category = req.body.category
-			record.date = req.body.date
-			record.amount = req.body.amount
-
-			return record.save()
+	.then((record) => {
+		record.name = req.body.name
+		record.category = req.body.category
+		record.date = req.body.date
+		record.amount = req.body.amount
+		return record.save()
 		})
 		.then((record) => { return res.redirect('/') })
 		.catch((error) => { return res.status(422).json(error) })

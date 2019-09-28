@@ -1,22 +1,19 @@
 const express = require('express')
 const app = express()
-//const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
-//const Record = require('./models/record.js')
 const methodOverride = require('method-override')
 const session = require('express-session')
 const passport = require('passport')
 const flash = require('connect-flash')
 require('handlebars')
 require('./handlebarsHelper.js')
-//require('./routes/chart.js')
+
 
 if (process.env.NODE_ENV !== 'production') {      // 如果不是 production 模式
 	require('dotenv').config()                      // 使用 dotenv 讀取 .env 檔案
 }
 
-//const db = mongoose.connection
 const db = require('./models')
 const Record = db.Record
 const User = db.User
@@ -25,15 +22,6 @@ app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
-//mongoose.connect('mongodb://127.0.0.1/record',  { useNewUrlParser: true })
-
-// db.on('err', () => {
-//   console.log('mongodb error!')
-// })
-
-// db.once('open', () => {
-// 	console.log('mongodb connected!')
-// })
 
 //app.use(express.static('public'))
 
@@ -62,7 +50,6 @@ app.use((req, res, next) => {
 })
 
 app.use('/', require('./routes/home.js'))
-//app.use('/filter', require('./routes/filterRecords.js'))
 app.use('/records', require('./routes/records.js'))
 app.use('/users', require('./routes/users.js'))
 app.use('/auth', require('./routes/auths.js'))

@@ -27,13 +27,9 @@ module.exports = {
 			  })
 	  	})
 		   .then((records) => {
-				 //console.log('records', records)
-				 //totalAmount = Amount(records)
 				 totalAmount = getAmount(records)
-				 console.log('totalAmount', totalAmount)
 				 chartData = getCategoryItem(records)
 				 chartData = chartData.map(Element => Element / totalAmount * 100)
-				 console.log('chartData', chartData)
 			    return res.render('index', {
 				    records: records,
 			    	totalAmount: totalAmount,
@@ -56,10 +52,8 @@ module.exports = {
 					})
 					.then((records) => {
 						totalAmount = getAmount(records)
-						console.log('totalAmount', totalAmount)
 						chartData = getCategoryItem(records)
 						chartData = chartData.map(Element => Element / totalAmount * 100)
-						console.log('chartData', chartData)
 						return res.render('index', {
 							records: records,
 							totalAmount: totalAmount,
@@ -67,35 +61,9 @@ module.exports = {
 							chartData: chartData
 						})
 					}).catch((error) => { return res.status(422).json(error) })
-			}
-
-			// function Amount(array) {
-			// 	array.forEach((item) =>
-			// 		totalAmount += parseInt(item.amount))
-			// 	return totalAmount
-			// }
-
-			// function getCategoryItem(data) {
-			// 	let chartData = []
-			// 	let categoryItemArray = ['homeProperty', 'traffic', 'entertainment', 'food', 'others']
-			// 	categoryItemArray.forEach(function (items) {
-			// 		const chartDataPerItem = data.filter(({ category }) => {
-			// 			return category.includes(items)
-			// 		})
-			// 		if (Array.isArray(chartDataPerItem) && chartDataPerItem.length) {
-			// 			chartDataPerItem.forEach((item) => {
-			// 				itemsPerValue += parseInt(item.amount)
-			// 				itemsPerValue = Math.round(itemsPerValue / totalAmount * 100)
-			// 			})
-			// 		} else {
-			// 			itemsPerValue = 0
-			// 		}
-			// 		chartData.push(itemsPerValue)
-			// 	})
-			// 	return chartData
-			// }
-		} catch (err) {
-			console.log(err)
+				}
+	  	} catch (err) {
+		  	console.log(err)
 		}	
 	}				
 }
