@@ -1,28 +1,14 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-
-const recordSchema = new Schema({
-	userID: {
-		type: String,
-		required: true
-	},
-	name: {
-		type: String,
-		required: true
-	},
-	category: {
-		type:String,
-		required: true
-	},
-	date: {
-		type: Date,
-		default: Date.now(),
-	},
-	amount: {
-		type: String,
-		required: true
-	}
-	
-})
-
-module.exports = mongoose.model('Record', recordSchema)
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const Record = sequelize.define('Record', {
+    name: DataTypes.STRING,
+    date: DataTypes.DATE,
+    category: DataTypes.STRING,
+    amount: DataTypes.STRING
+  }, {});
+  Record.associate = function(models) {
+    // associations can be defined here
+    Record.belongsTo(models.User)
+  };
+  return Record;
+};

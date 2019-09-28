@@ -1,6 +1,7 @@
-const Record = require('../models/record.js')
-
-
+const db = require('../models')
+const Record = db.Record
+const User = db.User
+const { Op } = require('sequelize')
 module.exports = {
 
   getHome: async(req, res) => {
@@ -12,33 +13,42 @@ module.exports = {
 			let filteredMonth = new Date().getMonth() + 1
 			let chartData = []
 			let categoryItemArray = ['homeProperty', 'traffic', 'entertainment', 'food', 'others']
-
-			const recordsDisplay = await Record.find({
-				userID: req.user._id, date: {
-					$gte: `2019-0${filteredMonth}-01`,
-					$lt: `2019-0${filteredMonth}-31`}})
-			recordsDisplay.forEach((item) =>
-				totalAmount += parseInt(item.amount)  
-			)
-
-			categoryItemArray.forEach(function (items) {
-				const chartDataPerItem = recordsDisplay.filter(({ category }) => {
-					return category.includes(items)
+			const records = await User.findByPk(req.user.id)
+			//User.findByPk(req.user.id)
+				.then((user) => {
+					if (!user) throw new Error("user not found")
+					return Record.findAll({
+						where: { 
+							UserId: req.user.id,
+							date: {
+								[Op.between]: [`2019-0${filteredMonth}-01`, `2019-0${filteredMonth}-30`]
+							}
+						}
+					})
 				})
-				chartDataPerItem.forEach((item) =>{
-					itemsPerValue += parseInt(item.amount) 
-					itemsPerValue = Math.round(itemsPerValue/totalAmount*100)
-				})
-				chartData.push(itemsPerValue)
-			})
-			res.render('index', {
-				records: recordsDisplay,
-				totalAmount: totalAmount,
-				filteredMonth: filteredMonth,
-				chartData: chartData
-			})
-		} catch (err) {
-			return console.log(err)
-		}  
+				.then((records) => {
+					console.log('records37', records)
+					//console.log('records', records)
+					//return res.render('index', { records: records })
+					records.forEach((item) =>
+						totalAmount += parseInt(item.amount))
+					categoryItemArray.forEach(function (items) {
+						const chartDataPerItem = records.filter(({ category }) => {
+							return category.includes(items)
+						})
+						chartDataPerItem.forEach((item) => {
+							itemsPerValue += parseInt(item.amount)
+							itemsPerValue = Math.round(itemsPerValue / totalAmount * 100)
+						})
+						chartData.push(itemsPerValue)
+					})
+					return res.render('index', {
+						records: records,
+						totalAmount: totalAmount,
+						filteredMonth: filteredMonth,
+						chartData: chartData
+					})	
+			  }).catch((error) => { return res.status(422).json(error)}) 		
+		  } catch(err) { return console.log(err)}
 	}
 }	

@@ -1,17 +1,17 @@
-const LocalStrategy = require('passport-local').Strategy  // 載入 passport-local
-const FacebookStrategy = require('passport-facebook').Strategy  // 載入 passport-facebook
-const mongoose = require('mongoose')
+// 載入 passport-local
+const LocalStrategy = require('passport-local').Strategy  
+// 載入 passport-facebook
+const FacebookStrategy = require('passport-facebook').Strategy  
 const bcrypt = require('bcryptjs')
-const User = require('../models/user.js')            
+const db = require('../models')
+const User = db.User 
     
 
 module.exports =  passport => {
 	passport.use(
 		new LocalStrategy(
 			{ usernameField: 'email' }, ( email, password, done) =>{
-				User.findOne({
-					email:email
-				}).then((user,err) => {
+				User.findOne({ where: { email: email }}).then((user,err) => {
 					if (err) { return done(err); }
 
 					if(!user){
@@ -75,9 +75,9 @@ module.exports =  passport => {
 		done(null, user.id);
 	});
 
-	passport.deserializeUser(function (id, done) {
-		User.findById(id, function (err, user) {
-			done(err, user);
-		});
-	});
+	passport.deserializeUser((id, done) => {
+		User.findByPk(id).then((user) => {
+			done(null, user)
+		})
+	})
 }

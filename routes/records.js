@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const Record = require('../models/record.js')
+const db = require('../models')
+const Record = db.Record
+const User = db.User
 const { authenticated } = require('../config/auth.js')
 
 //create new records
@@ -11,64 +13,132 @@ router.get('/new', authenticated, (req, res) =>{
 router.post('/', authenticated, (req, res) => {
 	const { name, category, date, amount} = req.body
 	let errors = []
-	const record = Record({
-		userID:  req.user._id,
+	Record.create({
 		name: req.body.name,
 		category: req.body.category,
-	  date: req.body.date,
-		amount: req.body.amount
+		date: req.body.date,
+		amount: req.body.amount,
+		UserId: req.user.id
 	})
+
+		.then((record) => { 
+			if (!name || !category || !date || !amount) {
+				errors.push({ message: '所有項目必填!' })
+			}
+
+			if (errors.length > 0) {
+				res.render('new', {
+					errors,
+					name,
+					category,
+					date,
+					amount
+				})
+			} else {
+				record.save((err) => {
+					if (err) return console.log(err)
+					console.log(`add ${req.body.name} is in sequelize!`)
+					return res.redirect('/')
+				})
+			}
+			return res.redirect('/') })
+		.catch((error) => { return res.status(422).json(error) })
+	// const record = Record({
+	// 	userID:  req.user._id,
+	// 	name: req.body.name,
+	// 	category: req.body.category,
+	//   date: req.body.date,
+	// 	amount: req.body.amount
+	// })
  
-	if (!name || !category || !date || !amount) {
-		errors.push({ message: '所有項目必填!' })
-	}
+	// if (!name || !category || !date || !amount) {
+	// 	errors.push({ message: '所有項目必填!' })
+	// }
   
-	if (errors.length > 0) {
-		res.render('new', {
-			errors,
-			name,
-			category,
-			date,
-			amount
-		})
-	}	else {
-    record.save((err) => {
-		if(err) return console.log(err)
-		console.log(`add ${req.body.name} is in mongodb!`)
-		return res.redirect('/')
-	})
-	}
+	// if (errors.length > 0) {
+	// 	res.render('new', {
+	// 		errors,
+	// 		name,
+	// 		category,
+	// 		date,
+	// 		amount
+	// 	})
+	// }	else {
+  //   record.save((err) => {
+	// 	if(err) return console.log(err)
+	// 	console.log(`add ${req.body.name} is in mongodb!`)
+	// 	return res.redirect('/')
+	// })
+	// }
 
 })
 
 //modify records
 router.get('/:id/edit', authenticated, (req, res) => {
-	Record.findById(req.params.id, (err, record) =>{
-		return res.render('edit', {record, record})
-	})
-})
-router.put('/:id', authenticated, (req, res) => {
-	Record.findById(req.params.id, (err, record) => {
-		record.name = req.body.name,
-		record.date = req.body.date,
-		record.category = req.body.category,
-		record.amount = req.body.amount
-		record.save((err) => {
-			return res.redirect('/')
+	User.findByPk(req.user.id)
+		.then((user) => {
+			if (!user) throw new Error("user not found")
+			return Record.findOne({
+				where: {
+					Id: req.params.id,
+					UserId: req.user.id,
+				}
+			})
 		})
+		.then((record) => { return res.render('edit', { record: record })})  
+})
+
+router.put('/:id', authenticated, (req, res) => {
+	Record.findOne({
+		where: {
+			Id: req.params.id,
+			UserId: req.user.id,
+		}
 	})
+		.then((record) => {
+			record.name = req.body.name
+			record.category = req.body.category
+			record.date = req.body.date
+			record.amount = req.body.amount
+
+			return record.save()
+		})
+		.then((record) => { return res.redirect('/') })
+		.catch((error) => { return res.status(422).json(error) })
+	// Record.findByPk(req.params.id, (err, record) => {
+	// 	record.name = req.body.name,
+	// 	record.date = req.body.date,
+	// 	record.category = req.body.category,
+	// 	record.amount = req.body.amount
+	// 	record.save((err) => {
+	// 		return res.redirect('/')
+	// 	})
+	// })
 })
 
 
 //delete record
 router.delete('/:id/delete', authenticated, ( req, res ) =>{
-	Record.findOne({ _id: req.params.id }, (err, record) =>{
-		if(err) return console.error(err)
-		  record.remove(err =>{
-				if(err) return console.error(err)
-				  return res.redirect('/')
+	User.findByPk(req.user.id)
+		.then((user) => {
+			if (!user) throw new Error("user not found")
+
+			return Record.destroy({
+				where: {
+					UserId: req.user.id,
+					Id: req.params.id
+				}
 			})
-	})
+		})
+		.then((record) => { return res.redirect('/') })
+		.catch((error) => { return res.status(422).json(error) })
+	// Record.findOne({where: { id: req.params.id }}, (err, record) =>{
+	// 	if(err) return console.error(err)
+	// 	  record.remove(err =>{
+	// 			if(err) return console.error(err)
+	// 			  return res.redirect('/')
+	// 		})
+	// })
 })
 
 module.exports = router

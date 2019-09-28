@@ -1,4 +1,5 @@
-const Record = require('../models/record.js')
+const db = require('../models')
+const Record = db.Record
 
 module.exports = {
 	
@@ -9,12 +10,15 @@ module.exports = {
 		const filteredCategory = req.query.category
 		try{
 			if (filteredCategory !== 'all'){
-				const recordsDisplay = await Record.find({
-					userID: req.user._id, date: {
+				const recordsDisplay = await Record.findAll({
+					where:{
+					UserId: req.user._id, 
+					date: {
 					$gte: `2019-0${filteredMonth}-01`,
 					$lt:  `2019-0${filteredMonth}-31`},
 					category: filteredCategory
-				})
+					}
+				}).catch((error) => { return res.status(422).json(error) })  
 				totalAmount = Amount(recordsDisplay)
 				chartData = getCategoryItem(recordsDisplay)
 				res.render('index', {
@@ -25,11 +29,12 @@ module.exports = {
 					chartData: chartData
 				})	
 			} else {
-				const recordsDisplay = await Record.find({
-					userID: req.user._id, date: {
+				const recordsDisplay = await Record.findAll({
+					UserId: req.user._id,
+					 date: {
 						$gte: `2019-0${filteredMonth}-01`,
 						$lt:  `2019-0${filteredMonth}-31`}
-				})
+				}).catch((error) => { return res.status(422).json(error) })  
 				totalAmount = Amount(recordsDisplay)
 				chartData = getCategoryItem(recordsDisplay)
 				res.render('index', {
