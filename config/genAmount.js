@@ -1,8 +1,10 @@
 module.exports = {
 	getAmount: records => {
-		console.log('records in genAmount', records)
-		array.forEach((item) =>
-			totalAmount += parseInt(item.amount))
+		let totalAmount = 0
+		records.forEach(function (element) {
+			//console.log('element.amount', element.amount)
+			totalAmount += parseInt(element.amount)
+		})	
 		return totalAmount
 	}
 }

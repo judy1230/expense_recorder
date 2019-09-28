@@ -1,6 +1,8 @@
 const db = require('../models')
 const Record = db.Record
 const User = db.User
+const { getAmount } = require('../config/genAmount.js')
+const { getCategoryItem } = require('../config/getCategoryItem.js')
 const { Op } = require('sequelize')
 module.exports = {
 
@@ -26,22 +28,27 @@ module.exports = {
 					})
 				})
 				.then((records) => {
-					records.forEach((item) =>
-						totalAmount += parseInt(item.amount))
-					categoryItemArray.forEach(function (items) {
-						const chartDataPerItem = records.filter(({ category }) => {
-							return category.includes(items)
-						})
-						if (Array.isArray(chartDataPerItem) && chartDataPerItem.length) {
-							chartDataPerItem.forEach((item) => {
-								itemsPerValue += parseInt(item.amount)
-								itemsPerValue = Math.round(itemsPerValue / totalAmount * 100)
-							})
-						} else {
-							itemsPerValue = 0
-						}
-						chartData.push(itemsPerValue)
-					})
+					totalAmount = getAmount(records)
+					console.log('totalAmount', totalAmount)
+					chartData = getCategoryItem(records)
+					chartData = chartData.map(Element => Element / totalAmount * 100)
+					console.log('chartData', chartData)
+					// records.forEach((item) =>
+					// 	totalAmount += parseInt(item.amount))
+					// categoryItemArray.forEach(function (items) {
+					// 	const chartDataPerItem = records.filter(({ category }) => {
+					// 		return category.includes(items)
+					// 	})
+					// 	if (Array.isArray(chartDataPerItem) && chartDataPerItem.length) {
+					// 		chartDataPerItem.forEach((item) => {
+					// 			itemsPerValue += parseInt(item.amount)
+					// 			itemsPerValue = Math.round(itemsPerValue / totalAmount * 100)
+					// 		})
+					// 	} else {
+					// 		itemsPerValue = 0
+					// 	}
+					// 	chartData.push(itemsPerValue)
+					// })
 					return res.render('index', {
 						records: records,
 						totalAmount: totalAmount,

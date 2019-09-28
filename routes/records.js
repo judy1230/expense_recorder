@@ -43,33 +43,6 @@ router.post('/', authenticated, (req, res) => {
 			}
 			return res.redirect('/') })
 		.catch((error) => { return res.status(422).json(error) })
-	// const record = Record({
-	// 	userID:  req.user._id,
-	// 	name: req.body.name,
-	// 	category: req.body.category,
-	//   date: req.body.date,
-	// 	amount: req.body.amount
-	// })
- 
-	// if (!name || !category || !date || !amount) {
-	// 	errors.push({ message: '所有項目必填!' })
-	// }
-  
-	// if (errors.length > 0) {
-	// 	res.render('new', {
-	// 		errors,
-	// 		name,
-	// 		category,
-	// 		date,
-	// 		amount
-	// 	})
-	// }	else {
-  //   record.save((err) => {
-	// 	if(err) return console.log(err)
-	// 	console.log(`add ${req.body.name} is in mongodb!`)
-	// 	return res.redirect('/')
-	// })
-	// }
 
 })
 
@@ -105,15 +78,6 @@ router.put('/:id', authenticated, (req, res) => {
 		})
 		.then((record) => { return res.redirect('/') })
 		.catch((error) => { return res.status(422).json(error) })
-	// Record.findByPk(req.params.id, (err, record) => {
-	// 	record.name = req.body.name,
-	// 	record.date = req.body.date,
-	// 	record.category = req.body.category,
-	// 	record.amount = req.body.amount
-	// 	record.save((err) => {
-	// 		return res.redirect('/')
-	// 	})
-	// })
 })
 
 
@@ -132,13 +96,6 @@ router.delete('/:id/delete', authenticated, ( req, res ) =>{
 		})
 		.then((record) => { return res.redirect('/') })
 		.catch((error) => { return res.status(422).json(error) })
-	// Record.findOne({where: { id: req.params.id }}, (err, record) =>{
-	// 	if(err) return console.error(err)
-	// 	  record.remove(err =>{
-	// 			if(err) return console.error(err)
-	// 			  return res.redirect('/')
-	// 		})
-	// })
 })
 
 module.exports = router
