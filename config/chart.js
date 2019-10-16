@@ -33,7 +33,8 @@ module.exports = {
 			    return res.render('index', {
 				    records: records,
 			    	totalAmount: totalAmount,
-				    filteredMonth: filteredMonth,
+						filteredMonth: filteredMonth,
+						filteredCategory: filteredCategory,
 			    	chartData: chartData
 		    	})
 				  }).catch((error) => { return res.status(422).json(error) })
@@ -57,7 +58,8 @@ module.exports = {
 						return res.render('index', {
 							records: records,
 							totalAmount: totalAmount,
-							filteredMonth: filteredMonth,
+							filteredMonth: filteredMonth, 
+							filteredCategory: filteredCategory,
 							chartData: chartData
 						})
 					}).catch((error) => { return res.status(422).json(error) })

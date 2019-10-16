@@ -12,6 +12,7 @@ router.get('/new', authenticated, (req, res) =>{
 //create new records
 router.post('/', authenticated, async(req, res) => {
 	const { name, category, date, amount} = req.body
+	let filteredMonth =  req.body.date
 	let errors = []
 	if (!name || !category || !date || !amount) {
 		errors.push({ message: '所有項目必填!' })
