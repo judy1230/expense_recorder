@@ -5,7 +5,6 @@ const { getAmount } = require('../config/genAmount.js')
 const { getCategoryItem } = require('../config/getCategoryItem.js')
 const { Op } = require('sequelize')
 module.exports = {
-
 	getHome: async (req, res) => {
 		try {
 			let totalAmount = 0
