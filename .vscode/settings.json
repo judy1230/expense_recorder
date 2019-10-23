@@ -24,6 +24,5 @@
 		"traffic",
 		"user",
 		"value"
-	],
-	"editor.defaultFormatter": "vscode.git-ui"
+	]
 }
